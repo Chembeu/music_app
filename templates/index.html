@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+ {{ super() }}
+ <style>
+    .hello{
+        color: aqua;
+    }
+ </style>
+{% endblock %}
+{% block body %}
+<h1 class="hello">Hello, World!</h1>
+{%endblock %}
+

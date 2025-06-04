@@ -1,8 +1,10 @@
-from flask import Flask
-app= Flask(__name__)
+from flask import Flask, render_template, request, redirect, url_for, flash
+app = Flask(__name__)  
 @app.route('/')
-def hello_world():
-    return '<h1>Hello, World!</h1>'
-app.run('/about/<username>')
-def about(username):
-    return f'<h1>About {username}</h1>'
+def index():
+    return'<h1>hello world</h1>'
+@app.route('/user')
+def user():
+    return render_template('index.html')
+if __name__ == '__main__':
+    app.run(debug=True)
