@@ -22,8 +22,8 @@
 body {
   background: linear-gradient(135deg, #1e3a8a, #0f172a);
   color: var(--light-text);
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw;
+  height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,6 @@ body {
 /* Layout Container */
 .music-app {
   width: 100vw;
-  height: 90vh;
   background: rgba(15, 23, 42, 0.95);
   border-radius: 20px;
   display: grid;
@@ -49,7 +48,7 @@ body {
 /* Header */
 .header {
   grid-area: header;
-  background: rgba(37, 99, 235, 0.95);
+  background: rgba(190, 192, 197, 0.95);
   padding: 0 30px;
   display: flex;
   justify-content: space-between;
@@ -72,7 +71,7 @@ body {
 
 .search-bar {
   width: 400px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(32, 66, 216, 0.88);
   border-radius: 50px;
   padding: 10px 20px;
   display: flex;
@@ -82,7 +81,7 @@ body {
 .search-bar input {
   background: transparent;
   border: none;
-  color: var(--light-text);
+  color: white;
   width: 100%;
   font-size: 14px;
   padding: 5px;
