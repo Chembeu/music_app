@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-lg mx-auto mt-10 p-8 bg-white rounded shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center">Add DJ</h2>
+    <form method="POST" class="space-y-4">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label class="block mb-1 font-semibold">{{ form.first_name.label }}</label>
+            {{ form.first_name(class="form-control w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500") }}
+            {% for error in form.first_name.errors %}
+                <span class="text-red-500 text-xs">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="block mb-1 font-semibold">{{ form.last_name.label }}</label>
+            {{ form.last_name(class="form-control w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500") }}
+            {% for error in form.last_name.errors %}
+                <span class="text-red-500 text-xs">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="block mb-1 font-semibold">{{ form.phone_no.label }}</label>
+            {{ form.phone_no(class="form-control w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500") }}
+            {% for error in form.phone_no.errors %}
+                <span class="text-red-500 text-xs">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="block mb-1 font-semibold">{{ form.email.label }}</label>
+            {{ form.email(class="form-control w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500") }}
+            {% for error in form.email.errors %}
+                <span class="text-red-500 text-xs">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label class="block mb-1 font-semibold">{{ form.username.label }}</label>
+            {{ form.username(class="form-control w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500") }}
+            {% for error in form.username.errors %}
+                <span class="text-red-500 text-xs">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group text-center mt-6">
+            {{ form.submit(class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
