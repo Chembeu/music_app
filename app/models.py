@@ -44,7 +44,7 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
+    @property
     def get_initials(self):
         return f"{self.first_name[0]}{self.last_name[0]}".upper()
 
