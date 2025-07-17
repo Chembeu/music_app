@@ -6,7 +6,8 @@
     <title>Harmony - Music Streaming</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel ="stylesheet" href = "styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
     <div class="music-app">
@@ -80,7 +81,7 @@
                 <p>Discover new music tailored for you</p>
             </div>
 
-            <h2 class="section-title">Made for Simon Shanga</h2>
+            <h2 class="section-title">Made for {{user}}</h2>
             <div class="playlist-grid">
                 <div class="playlist-card">
                     <div class="card-img">

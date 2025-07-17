@@ -1,14 +1,62 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .auth import auth_bp
+from flask_login import LoginManager
+from flask_cors import CORS
+from flask_socketio import SocketIO
+from flask_migrate import Migrate
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'  # Change to a secure key in production
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///music_app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Initialize extensions (without app)
+db = SQLAlchemy()
+migrate = Migrate()
+login_manager = LoginManager()
+socketio = SocketIO()
+cors = CORS()
 
-db = SQLAlchemy(app)
+def create_app():
+    """Application factory function"""
+    app = Flask(__name__)
 
-app.register_blueprint(auth_bp, url_prefix='/auth')
+    # Configure application
+    app.config.from_mapping(
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:7629@localhost/music',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        WTF_CSRF_ENABLED=False,
+        SECRET_KEY='your-secret-key'
+    )
 
-from . import routes
+    # Initialize extensions with app
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="*")
+    cors.init_app(app)
+
+    # Configure login manager
+    login_manager.session_protection = 'strong'
+    login_manager.login_view = 'auth.login'
+
+    # Import models after db initialization
+    from app.models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    # Register blueprints (import here to avoid circular imports)
+    from app.auth import auth_bp
+    from app.routes import main_bp
+    
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(main_bp)
+
+    # Create tables
+    with app.app_context():
+        db.create_all()
+
+    return app
+
+# Create application instance
+app = create_app()
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
