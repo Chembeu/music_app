@@ -94,45 +94,72 @@ body {
 }
 
 .user-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
 }
 
-.upgrade-btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
+/* Settings Button */
+.settings-btn {
+    color: white;
+    font-size: 18px;
+    transition: opacity 0.3s;
 }
 
-.upgrade-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.05);
+.settings-btn:hover {
+    opacity: 0.8;
 }
 
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
+/* Avatar */
 .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
+    width: 36px;
+    height: 36px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+/* Dropdown Menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: #2d2d2d;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    min-width: 150px;
+    overflow: hidden;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px 15px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-btn:hover {
+    background: #3a3a3a;
+}
+
+/* Show dropdown when active */
+.show-dropdown {
+    display: block;
+}
 /* Sidebar */
 .sidebar {
   grid-area: sidebar;

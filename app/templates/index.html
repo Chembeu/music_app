@@ -12,21 +12,38 @@
 <body>
     <div class="music-app">
         <!-- Header Section -->
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-music"></i>
-                <span>Burudani</span>
-            </div>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for Mix, DJs, or Disco">
-            </div>
-            <div class="user-actions">
-                <div class="user-profile">
-                    <div class="avatar"> {{ user.first_name[0].upper() if user and user.first_name else "?" }}</div>
-                </div>
-            </div>
-        </header>
+       <header class="header">
+    <div class="logo">
+        <i class="fas fa-music"></i>
+        <span>Burudani</span>
+    </div>
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search for Mix, DJs, or Disco">
+    </div>
+    <!-- Right-Aligned User Actions -->
+    <div class="user-actions">
+        <!-- Settings Button (Always Visible) -->
+        <a href="" class="settings-btn">
+            <i class="fas fa-cog"></i>
+        </a>
+        
+        <!-- User Avatar + Dropdown -->
+        <div class="user-profile" onclick="toggleDropdown()">
+            <div class="avatar">{{ user.first_name[0].upper() if user and user.first_name else "?" }}</div>
+        </div>
+        
+        <!-- Dropdown Menu (Hidden by Default) -->
+        <div class="dropdown-content" id="dropdownMenu">
+            <form action="{{ url_for('auth.logout') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="">
+                <button type="submit" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
 
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
@@ -258,6 +275,18 @@
                 card.style.transform = 'translateY(0)';
             });
         });
+        function toggleDropdown() {
+    const dropdown = document.getElementById("dropdownMenu");
+    dropdown.classList.toggle("show-dropdown");
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById("dropdownMenu");
+    if (!e.target.closest('.user-actions')) {
+        dropdown.classList.remove('show-dropdown');
+    }
+});
     </script>
 </body>
 </html>
