@@ -34,13 +34,9 @@ def create_app():
     # Configure login manager
     login_manager.session_protection = 'strong'
     login_manager.login_view = 'auth.login'
-
+    from app.login import load_user  # Import user loader function
     # Import models after db initialization
-    from app.models import User
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
 
     # Register blueprints (import here to avoid circular imports)
     from app.auth import auth_bp

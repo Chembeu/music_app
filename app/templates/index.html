@@ -81,7 +81,13 @@
                 <p>Discover new music tailored for you</p>
             </div>
 
-            <h2 class="section-title">Made for {{user}}</h2>
+            <h2 class="section-title">{% if user.is_authenticated %}
+  <h2>Made for {{ user.first_name }} {{ user.last_name }}</h2>
+{% else %}
+  <h2>Made for Guest</h2>
+{% endif %}
+
+</h2>
             <div class="playlist-grid">
                 <div class="playlist-card">
                     <div class="card-img">
