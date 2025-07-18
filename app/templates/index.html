@@ -23,7 +23,7 @@
             </div>
             <div class="user-actions">
                 <div class="user-profile">
-                    <div class="avatar">{{ current_user.initials }}</div>
+                    <div class="avatar"> {{ user.first_name[0].upper() if user and user.first_name else "?" }}</div>
                 </div>
             </div>
         </header>
@@ -82,7 +82,7 @@
             </div>
 
             <h2 class="section-title">{% if user.is_authenticated %}
-  <h2>Made for {{ user.first_name }} {{ user.last_name }}</h2>
+  <h2>Made for {{ user.first_name }}</h2>
 {% else %}
   <h2>Made for Guest</h2>
 {% endif %}

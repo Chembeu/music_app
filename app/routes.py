@@ -7,7 +7,11 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 @login_required
 def home():
-    return render_template('index.html', user=current_user)
+     if hasattr(current_user, 'first_name') and hasattr(current_user, 'last_name'):
+        initials = f"{current_user.first_name[0]}{current_user.last_name[0]}".upper()
+     else:
+        initials = "?" 
+     return render_template('index.html', user=current_user, initials=initials)
 
 @main_bp.route('/profile')
 @login_required
