@@ -22,38 +22,39 @@
 body {
   background: linear-gradient(135deg, #1e3a8a, #0f172a);
   color: var(--light-text);
-  /* width: 100vw;
-  height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 
 /* Layout Container */
 .music-app {
   width: 100vw;
+  height: 100vh;
   background: rgba(15, 23, 42, 0.95);
-  border-radius: 20px;
   display: grid;
   grid-template-columns: 240px 1fr;
-  grid-template-rows: 80px 1fr 100px;
+  grid-template-rows: 1fr 100px;
   grid-template-areas:
-    "header header"
     "sidebar content"
     "player player";
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
 }
 
-/* Header */
-.header {
-  grid-area: header;
-  background: rgba(190, 192, 197, 0.95);
-  padding: 0 30px;
+/* Sidebar */
+.sidebar {
+  grid-area: sidebar;
+  background: rgba(30, 41, 59, 0.9);
+  padding: 20px;
+  overflow-y: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-direction: column;
+}
+
+.sidebar-top {
+  margin-bottom: 30px;
 }
 
 .logo {
@@ -63,109 +64,82 @@ body {
   font-size: 24px;
   font-weight: 700;
   color: var(--primary);
+  margin-bottom: 30px;
 }
 
 .logo i {
   font-size: 28px;
 }
 
-.search-bar {
-  width: 400px;
-  background: rgba(32, 66, 216, 0.88);
-  border-radius: 50px;
-  padding: 10px 20px;
+.sidebar-user {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.search-bar input {
-  background: transparent;
-  border: none;
-  color: white;
-  width: 100%;
-  font-size: 14px;
-  padding: 5px;
-  outline: none;
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
 
-.search-bar i {
-  color: var(--gray-text);
-  margin-right: 10px;
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    position: relative;
-}
-
-/* Settings Button */
 .settings-btn {
-    color: white;
-    font-size: 18px;
-    transition: opacity 0.3s;
+  color: var(--gray-text);
+  font-size: 18px;
+  transition: opacity 0.3s;
 }
 
 .settings-btn:hover {
-    opacity: 0.8;
-}
-
-/* Avatar */
-.avatar {
-    width: 36px;
-    height: 36px;
-    background: #4CAF50;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bold;
+  color: var(--light-text);
 }
 
 /* Dropdown Menu */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background: #2d2d2d;
-    border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 100;
-    min-width: 150px;
-    overflow: hidden;
+  display: none;
+  background: var(--dark-panel);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-top: 10px;
 }
 
 .logout-btn {
-    width: 100%;
-    padding: 10px 15px;
-    text-align: left;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  width: 100%;
+  padding: 12px 15px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
 }
 
 .logout-btn:hover {
-    background: #3a3a3a;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Show dropdown when active */
 .show-dropdown {
-    display: block;
-}
-/* Sidebar */
-.sidebar {
-  grid-area: sidebar;
-  background: rgba(30, 41, 59, 0.9);
-  padding: 20px;
-  overflow-y: auto;
+  display: block;
 }
 
 .nav-item {
@@ -223,6 +197,32 @@ body {
   grid-area: content;
   padding: 30px;
   overflow-y: auto;
+}
+
+.main-search-bar {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 50px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main-search-bar input {
+  background: transparent;
+  border: none;
+  color: var(--light-text);
+  width: 100%;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
+}
+
+.main-search-bar i {
+  color: var(--gray-text);
+  margin-right: 10px;
 }
 
 .content-header {
@@ -470,22 +470,40 @@ body {
     display: none;
   }
 
-  .search-bar {
-    width: 200px;
+  .sidebar-user span {
+    display: none;
+  }
+
+  .main-search-bar {
+    max-width: 300px;
   }
 }
 
 @media (max-width: 600px) {
   .music-app {
     grid-template-areas:
-      "header header"
-      "content content"
+      "sidebar content"
       "player player";
-    height: 95vh;
+    height: 100vh;
   }
 
-  .sidebar,
-  .search-bar,
+  .sidebar {
+    padding: 10px;
+  }
+
+  .logo span,
+  .nav-item span,
+  .library-header h3,
+  .library-header i,
+  .sidebar-user span {
+    display: none;
+  }
+
+  .main-search-bar {
+    max-width: 100%;
+    margin: 10px 0 20px;
+  }
+
   .now-playing,
   .player-options {
     display: none;

@@ -7,46 +7,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
 </head>
 <body>
     <div class="music-app">
-        <!-- Header Section -->
-       <header class="header">
-    <div class="logo">
-        <i class="fas fa-music"></i>
-        <span>Burudani</span>
-    </div>
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Search for Mix, DJs, or Disco">
-    </div>
-    <!-- Right-Aligned User Actions -->
-    <div class="user-actions">
-        <!-- Settings Button (Always Visible) -->
-        <a href="" class="settings-btn">
-            <i class="fas fa-cog"></i>
-        </a>
-        
-        <!-- User Avatar + Dropdown -->
-        <div class="user-profile" onclick="toggleDropdown()">
-            <div class="avatar">{{ user.first_name[0].upper() if user and user.first_name else "?" }}</div>
-        </div>
-        
-        <!-- Dropdown Menu (Hidden by Default) -->
-        <div class="dropdown-content" id="dropdownMenu">
-            <form action="{{ url_for('auth.logout') }}" method="POST">
-                <input type="hidden" name="csrf_token" value="">
-                <button type="submit" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </form>
-        </div>
-    </div>
-</header>
-
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo">
+                    <i class="fas fa-music"></i>
+                    <span>Burudani</span>
+                </div>
+                
+                <!-- User Profile in Sidebar -->
+                <div class="sidebar-user">
+                    <div class="user-profile" onclick="toggleDropdown()">
+                        <div class="avatar">{{ user.first_name[0].upper() if user and user.first_name else "?" }}</div>
+                        <span>{{ user.first_name if user and user.first_name else "Guest" }}</span>
+                    </div>
+                    <a href="" class="settings-btn">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                
+                <!-- Dropdown Menu (Hidden by Default) -->
+                <div class="dropdown-content" id="dropdownMenu">
+                    <form action="{{ url_for('auth.logout') }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="">
+                        <button type="submit" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             <div class="nav-item active">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
@@ -93,18 +86,25 @@
 
         <!-- Main Content Area -->
         <main class="content">
+            <!-- Search Bar in Main Content -->
+            <div class="main-search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for Mix, DJs, or Disco">
+            </div>
+
             <div class="content-header">
                 <h1>Good evening</h1>
                 <p>Discover new music tailored for you</p>
             </div>
 
-            <h2 class="section-title">{% if user.is_authenticated %}
-  <h2>Made for {{ user.first_name }}</h2>
-{% else %}
-  <h2>Made for Guest</h2>
-{% endif %}
+            <h2 class="section-title">
+                {% if user.is_authenticated %}
+                    <h2>Made for {{ user.first_name }}</h2>
+                {% else %}
+                    <h2>Made for Guest</h2>
+                {% endif %}
+            </h2>
 
-</h2>
             <div class="playlist-grid">
                 <div class="playlist-card">
                     <div class="card-img">
@@ -275,18 +275,19 @@
                 card.style.transform = 'translateY(0)';
             });
         });
+        
         function toggleDropdown() {
-    const dropdown = document.getElementById("dropdownMenu");
-    dropdown.classList.toggle("show-dropdown");
-}
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show-dropdown");
+        }
 
-// Close dropdown when clicking outside
-document.addEventListener('click', (e) => {
-    const dropdown = document.getElementById("dropdownMenu");
-    if (!e.target.closest('.user-actions')) {
-        dropdown.classList.remove('show-dropdown');
-    }
-});
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById("dropdownMenu");
+            if (!e.target.closest('.sidebar-user') && !e.target.closest('.dropdown-content')) {
+                dropdown.classList.remove('show-dropdown');
+            }
+        });
     </script>
 </body>
 </html>
