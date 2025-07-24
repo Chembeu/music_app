@@ -26,6 +26,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 /* Layout Container */
@@ -43,14 +44,14 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* Sidebar */
+/* Sidebar - No Scrollbar */
 .sidebar {
   grid-area: sidebar;
   background: rgba(30, 41, 59, 0.9);
   padding: 20px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .sidebar-top {
@@ -142,6 +143,17 @@ body {
   display: block;
 }
 
+.nav-items-container {
+  flex: 1;
+  overflow-y: auto; /* Allow scrolling only for nav items if needed */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+.nav-items-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
 .nav-item {
   display: flex;
   align-items: center;
@@ -151,6 +163,7 @@ body {
   color: var(--gray-text);
   cursor: pointer;
   transition: var(--transition);
+  margin-bottom: 5px;
 }
 
 .nav-item:hover,
