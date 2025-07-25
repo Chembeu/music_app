@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add DJs and Mixes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #1db954;
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .form-section h2 {
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b3b3b3;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #1db954;
+        }
+        
+        .btn {
+            background-color: #1db954;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #1ed760;
+            transform: scale(1.02);
+        }
+        
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border: 1px dashed #444;
+            border-radius: 5px;
+            color: #b3b3b3;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .success-message {
+            background-color: #1db954;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Content</h1>
+        
+        <div id="success-message" class="success-message">
+            Content added successfully!
+        </div>
+        
+        <!-- Add DJ Section -->
+        <div class="form-section">
+            <h2>Add New DJ</h2>
+            <form id="add-dj-form">
+                <div class="form-group">
+                    <label for="dj-name">DJ Name</label>
+                    <input type="text" id="dj-name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dj-genres">Genres</label>
+                    <input type="text" id="dj-genres" class="form-control" placeholder="Comma separated list (e.g., House, Techno, Trance)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dj-bio">Bio</label>
+                    <textarea id="dj-bio" class="form-control" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dj-image">Profile Image</label>
+                    <div class="file-upload">
+                        <label class="file-upload-btn">
+                            <span id="file-name">Choose file...</span>
+                            <input type="file" id="dj-image" class="file-upload-input" accept="image/*" required>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Add DJ</button>
+            </form>
+        </div>
+        
+        <!-- Add Mix Section -->
+        <div class="form-section">
+            <h2>Add New Mix</h2>
+            <form id="add-mix-form">
+                <div class="form-group">
+                    <label for="mix-title">Mix Title</label>
+                    <input type="text" id="mix-title" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mix-dj">DJ</label>
+                    <select id="mix-dj" class="form-control" required>
+                        <option value="">Select DJ</option>
+                        <!-- This would be populated from your database in a real app -->
+                        <option value="1">DJ Example</option>
+                        <option value="2">Another DJ</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mix-genre">Genre</label>
+                    <select id="mix-genre" class="form-control" required>
+                        <option value="">Select Genre</option>
+                        <option value="house">House</option>
+                        <option value="techno">Techno</option>
+                        <option value="trance">Trance</option>
+                        <option value="dubstep">Dubstep</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mix-description">Description</label>
+                    <textarea id="mix-description" class="form-control" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mix-cover">Cover Art</label>
+                    <div class="file-upload">
+                        <label class="file-upload-btn">
+                            <span id="mix-cover-name">Choose file...</span>
+                            <input type="file" id="mix-cover" class="file-upload-input" accept="image/*" required>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mix-audio">Audio File</label>
+                    <div class="file-upload">
+                        <label class="file-upload-btn">
+                            <span id="mix-audio-name">Choose file...</span>
+                            <input type="file" id="mix-audio" class="file-upload-input" accept="audio/*" required>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Add Mix</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // File input display
+        document.getElementById('dj-image').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
+            document.getElementById('file-name').textContent = fileName;
+        });
+        
+        document.getElementById('mix-cover').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
+            document.getElementById('mix-cover-name').textContent = fileName;
+        });
+        
+        document.getElementById('mix-audio').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
+            document.getElementById('mix-audio-name').textContent = fileName;
+        });
+        
+        // Form submission handlers
+        document.getElementById('add-dj-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSuccessMessage();
+            this.reset();
+            document.getElementById('file-name').textContent = 'Choose file...';
+        });
+        
+        document.getElementById('add-mix-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showSuccessMessage();
+            this.reset();
+            document.getElementById('mix-cover-name').textContent = 'Choose file...';
+            document.getElementById('mix-audio-name').textContent = 'Choose file...';
+        });
+        
+        function showSuccessMessage() {
+            const message = document.getElementById('success-message');
+            message.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
