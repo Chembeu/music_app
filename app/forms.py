@@ -2,8 +2,9 @@
 # Define your Flask-WTF forms here
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField,DateField
 from wtforms.validators import DataRequired, Email
+import datetime
 
 
 # Form for DJ model
@@ -20,7 +21,7 @@ from wtforms import FileField
 
 class MixForm(FlaskForm):
     name = StringField('Mix Name', validators=[DataRequired()])
-    date_uploaded = StringField('Date Uploaded', validators=[DataRequired()])  # Use DateField if you want date picker
+    date_uploaded = DateField('Date Uploaded', default=datetime.date.today, format='%Y-%m-%d')  # Use DateField if you want date picker
     stream = StringField('Stream', default='0')
     downloads = StringField('Downloads', default='0')
     file = FileField('Upload Mix', validators=[DataRequired()])

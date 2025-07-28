@@ -177,7 +177,7 @@
                     <div class="file-upload">
                         <label class="file-upload-btn">
                             <span id="file-name">Choose audio file...</span>
-                            {{ form.file(class="file-upload-input") }}
+                            {{ form.file(class="file-upload-input", accept=".mp3,.mp4") }}
                         </label>
                     </div>
                     {% for error in form.file.errors %}

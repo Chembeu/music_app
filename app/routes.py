@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template,redirect, flash, url_for, request
 from flask_login import login_required, current_user
-from app.models import User
+from app.models import User, DJ
 from app.forms import MixForm
 import os
 from werkzeug.utils import secure_filename
@@ -28,6 +28,7 @@ def my_profile():
 def user_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('profile.html', user=user)
+@login_required
 @main_bp.route('/add_mix', methods=['GET', 'POST'])
 def add_mix():
     form = MixForm()
@@ -40,12 +41,19 @@ def add_mix():
         file_path = os.path.join(upload_folder, filename)
         file.save(file_path)
 
+        # Find the DJ instance for the current user
+        dj = DJ.query.filter_by(username=current_user.username).first()
+        if not dj:
+            flash('You must be registered as a DJ to upload a mix.', 'error')
+            return redirect(url_for('main.add_mix'))
+
         # Create Mix instance
         mix = Mix(
             name=form.name.data,
-            date_uploaded=datetime.strptime(form.date_uploaded.data, "%Y-%m-%d"),
+            date_uploaded=form.date_uploaded.data,  # <-- Use directly, no strptime
             stream=int(form.stream.data) if form.stream.data else 0,
             downloads=int(form.downloads.data) if form.downloads.data else 0,
+            dj_id=dj.id,  # Associate mix with the DJ
             file_path=file_path,
             file_size=os.path.getsize(file_path),
             # duration can be set if you process the audio file
