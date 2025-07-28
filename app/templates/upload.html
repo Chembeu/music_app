@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add DJs and Mixes</title>
+    <title>Add Mix</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -24,6 +24,7 @@
         h1 {
             color: #1db954;
             margin-bottom: 30px;
+            text-align: center;
         }
         
         .form-section {
@@ -32,13 +33,6 @@
             border-radius: 10px;
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .form-section h2 {
-            margin-top: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         
         .form-group {
@@ -78,6 +72,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
+            width: 100%;
         }
         
         .btn:hover {
@@ -121,149 +116,95 @@
             margin-bottom: 20px;
             display: none;
         }
+        
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Add New Content</h1>
+        <h1>Add New Mix</h1>
         
-        <div id="success-message" class="success-message">
-            Content added successfully!
-        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="success-message" style="display: block;">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
         
-        <!-- Add DJ Section -->
         <div class="form-section">
-            <h2>Add New DJ</h2>
-            <form id="add-dj-form">
+            <form method="POST" enctype="multipart/form-data" id="add-mix-form">
+                {{ form.hidden_tag() }}
+                
                 <div class="form-group">
-                    <label for="dj-name">DJ Name</label>
-                    <input type="text" id="dj-name" class="form-control" required>
+                    {{ form.name.label }}
+                    {{ form.name(class="form-control") }}
+                    {% for error in form.name.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
                 
                 <div class="form-group">
-                    <label for="dj-genres">Genres</label>
-                    <input type="text" id="dj-genres" class="form-control" placeholder="Comma separated list (e.g., House, Techno, Trance)" required>
+                    {{ form.date_uploaded.label }}
+                    {{ form.date_uploaded(class="form-control") }}
+                    {% for error in form.date_uploaded.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
                 
                 <div class="form-group">
-                    <label for="dj-bio">Bio</label>
-                    <textarea id="dj-bio" class="form-control" rows="4"></textarea>
+                    {{ form.stream.label }}
+                    {{ form.stream(class="form-control") }}
+                    {% for error in form.stream.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
                 
                 <div class="form-group">
-                    <label for="dj-image">Profile Image</label>
+                    {{ form.downloads.label }}
+                    {{ form.downloads(class="form-control") }}
+                    {% for error in form.downloads.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="file">Upload Mix</label>
                     <div class="file-upload">
                         <label class="file-upload-btn">
-                            <span id="file-name">Choose file...</span>
-                            <input type="file" id="dj-image" class="file-upload-input" accept="image/*" required>
+                            <span id="file-name">Choose audio file...</span>
+                            {{ form.file(class="file-upload-input") }}
                         </label>
                     </div>
+                    {% for error in form.file.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
                 
-                <button type="submit" class="btn">Add DJ</button>
-            </form>
-        </div>
-        
-        <!-- Add Mix Section -->
-        <div class="form-section">
-            <h2>Add New Mix</h2>
-            <form id="add-mix-form">
-                <div class="form-group">
-                    <label for="mix-title">Mix Title</label>
-                    <input type="text" id="mix-title" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mix-dj">DJ</label>
-                    <select id="mix-dj" class="form-control" required>
-                        <option value="">Select DJ</option>
-                        <!-- This would be populated from your database in a real app -->
-                        <option value="1">DJ Example</option>
-                        <option value="2">Another DJ</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mix-genre">Genre</label>
-                    <select id="mix-genre" class="form-control" required>
-                        <option value="">Select Genre</option>
-                        <option value="house">House</option>
-                        <option value="techno">Techno</option>
-                        <option value="trance">Trance</option>
-                        <option value="dubstep">Dubstep</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mix-description">Description</label>
-                    <textarea id="mix-description" class="form-control" rows="4"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mix-cover">Cover Art</label>
-                    <div class="file-upload">
-                        <label class="file-upload-btn">
-                            <span id="mix-cover-name">Choose file...</span>
-                            <input type="file" id="mix-cover" class="file-upload-input" accept="image/*" required>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mix-audio">Audio File</label>
-                    <div class="file-upload">
-                        <label class="file-upload-btn">
-                            <span id="mix-audio-name">Choose file...</span>
-                            <input type="file" id="mix-audio" class="file-upload-input" accept="audio/*" required>
-                        </label>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn">Add Mix</button>
+                {{ form.submit(class="btn") }}
             </form>
         </div>
     </div>
 
     <script>
         // File input display
-        document.getElementById('dj-image').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
+        document.getElementById('file').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose audio file...';
             document.getElementById('file-name').textContent = fileName;
         });
         
-        document.getElementById('mix-cover').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
-            document.getElementById('mix-cover-name').textContent = fileName;
-        });
-        
-        document.getElementById('mix-audio').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file...';
-            document.getElementById('mix-audio-name').textContent = fileName;
-        });
-        
-        // Form submission handlers
-        document.getElementById('add-dj-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            showSuccessMessage();
-            this.reset();
-            document.getElementById('file-name').textContent = 'Choose file...';
-        });
-        
-        document.getElementById('add-mix-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            showSuccessMessage();
-            this.reset();
-            document.getElementById('mix-cover-name').textContent = 'Choose file...';
-            document.getElementById('mix-audio-name').textContent = 'Choose file...';
-        });
-        
-        function showSuccessMessage() {
-            const message = document.getElementById('success-message');
-            message.style.display = 'block';
+        // Show success message if it exists
+        const successMessage = document.querySelector('.success-message');
+        if (successMessage && successMessage.textContent.trim() !== '') {
+            successMessage.style.display = 'block';
             
             // Hide after 3 seconds
             setTimeout(() => {
-                message.style.display = 'none';
+                successMessage.style.display = 'none';
             }, 3000);
         }
     </script>
